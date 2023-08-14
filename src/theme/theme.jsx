@@ -7,11 +7,6 @@ const theme = createTheme({
     TextField: {
         fontFamily: ["Poppins", "sans-serif"].join(",")
     },
-    ListItemText: {
-        primary:{
-            main : 'white'
-        }
-    }
 });
 
 export default theme

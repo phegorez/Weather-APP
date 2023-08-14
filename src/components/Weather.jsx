@@ -11,7 +11,7 @@ import {
 
 import rainy_background from '../image/background/rainy_background.jpg'
 import Typography from '@mui/material/Typography'
-import '../components/Weather.css'
+import './Weather.css'
 import { useEffect, useState, useReducer } from 'react';
 import axios from 'axios';
 import { City } from 'country-state-city';
@@ -87,10 +87,11 @@ const Weather = () => {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
                     const { latitude, longitude } = position.coords;
-                    // dispatch({type: 'UPDATE_STATE', payload: {latitude, longitude}})
+                    // dispatch({type: ' ', payload: {latitude, longitude}})
                     setLatitude(latitude);
                     setLongitude(longitude);
 
+                    //Using latitude and longitude from current locaction 
                     const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${latitude},${longitude}&aqi=no`;
                     fetchWeatherData(apiUrl);
                 },
@@ -108,6 +109,7 @@ const Weather = () => {
         if (!isFetching) {
             fetchWeatherByLocation();
         } else if (isFetching) {
+            //Using query by user interact, Search Input & Last Search
             const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${query}&aqi=no`;
             fetchWeatherData(apiUrl);
         }
@@ -278,13 +280,34 @@ const Weather = () => {
                         disablePortal
                         options={searchResults}
                         value={lastSelected}
-                        sx={{ width: 300 }}
-                        renderInput={(result) => <TextField {...result}
-                            label='Search City'
-                            value={searchTerm}
-                            onChange={(e) => handleSearch(e.target.value)}
-                            placeholder={placeholder || 'Search for a city'}
-                        />}
+                        sx={{
+                            width: 300,
+                            '& .MuiOutlinedInput-root': {
+                                width: '100%', // Make sure the input field spans the entire width
+                                '& fieldset': {
+                                    border: '2px solid #071013', // Set the fieldset border size and color
+                                    transition: 'border-color 0.3s'
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: '#DFE0E2'
+                                },
+                                '&:focus-within fieldset': {
+                                    borderColor: '#90DDF0', // Change border color on focus
+                                },
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: '#DFE0E2', // Change the label color here
+                            },
+                        }}
+                        renderInput={(result) =>
+                            <TextField
+                                sx={{ input: { color: 'white' }, }}
+                                {...result}
+                                label='Search City'
+                                value={searchTerm}
+                                onChange={(e) => handleSearch(e.target.value)}
+                                placeholder={placeholder || 'Search for a city'}
+                            />}
                         onChange={handleAutocompleteChange}
                         onInputChange={(event, newValue) => {
                             if (event && (event.type === 'click' || event.type === 'keydown')) {
@@ -311,7 +334,10 @@ const Weather = () => {
                                 key={index}
                                 onClick={() => handleLastSearchClick(lastSearch)}
                             >
-                                <ListItemText color='white' primary={lastSearch} />
+                                <ListItemText
+                                    disableTypography
+                                    primary={<Typography variant="body1" color="white">{lastSearch}</Typography>}
+                                />
                             </ListItemButton>
                         ))}
                     </List>
@@ -360,16 +386,16 @@ const Weather = () => {
                             spacing={2}
                         >
                             <Typography variant="body1" color="white">
-                                {data?.current?.cloud}
+                                {data?.current?.cloud || 'Loading'}
                             </Typography>
                             <Typography variant="body1" color="white">
-                                {data?.current?.humidity} %
+                                {data?.current?.humidity || 'Loading'} %
                             </Typography>
                             <Typography variant="body1" color="white">
-                                {data?.current?.wind_kph} Km/h
+                                {data?.current?.wind_kph || 'Loading'} Km/h
                             </Typography>
                             <Typography variant="body1" color="white">
-                                {data?.current?.uv}
+                                {data?.current?.uv || 'Loading'}
                             </Typography>
                         </Stack>
                     </Stack>
