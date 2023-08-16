@@ -14,6 +14,9 @@ import blizzard from '../assets/blizzard_background.jpg'
 import clear from '../assets/clear_background.jpg'
 import fog from '../assets/fog_background.jpg'
 import freezing_fog from '../assets/freezing_fog_background.jpg'
+import patchy_light_drizzle from '../assets/patchy_light_drizzle_background.jpg'
+import light_drizzle from '../assets/light_drizzle_background.jpg'
+
 
 export const useDynamicBackground = (conditionText) => {
     const [backgroundImage, setBackgroundImage] = useState('');
@@ -51,7 +54,11 @@ export const useDynamicBackground = (conditionText) => {
                 return fog
             } else if (condition === 'Freezing fog') {
                 return freezing_fog
-            }
+            } else if (condition === 'Patchy light drizzle') {
+                return patchy_light_drizzle
+            } else if (condition === 'Light drizzle') {
+                return light_drizzle
+            } 
         };
 
         const bgImage = dynamicWeatherBackground(conditionText);
