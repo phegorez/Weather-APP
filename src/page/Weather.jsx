@@ -4,8 +4,6 @@ import {
     Box,
 } from '@mui/material'
 
-import rainy_background from '../assets/rainy_background.jpg'
-import Typography from '@mui/material/Typography'
 import './Weather.css'
 import AutocompleteInput from '../components/AutocompleteInput';
 import LastSearchList from '../components/LastSearchList';
@@ -13,12 +11,14 @@ import { useWeatherService } from '../service/WeatherService';
 import Logo from '../components/Logo';
 import Display from '../components/Display';
 import WeatherDetailsBox from '../components/WeatherDetailsBox';
+import { useState, useEffect } from 'react'
+import { useDynamicBackground } from '../service/DynamicBackground'
 
 const MAX_SEARCH_HISTORY = 5;
 
 const Weather = () => {
 
-//Function Area
+    //Function Area
     const {
         isFetching,
         latitude,
@@ -29,6 +29,7 @@ const Weather = () => {
         cityNameMap,
         searchHistory,
         lastSelected,
+        conditionText,
         query,
         data,
         fetchWeatherByLocation,
@@ -41,9 +42,12 @@ const Weather = () => {
         setSearchResults,
         setPlaceholder,
         setSearchHistory,
-        setLastSelected
+        setLastSelected,
+        setConditionText
         // Other functions if needed
     } = useWeatherService(); // Use the useWeatherService hook
+
+    const {backgroundImage} = useDynamicBackground(data?.current.condition.text)
 
     //Handle user search input and display matching city suggestions
     const handleSearch = (query) => {
@@ -94,10 +98,12 @@ const Weather = () => {
         setIsFetching(true)
     };
 
+    //Handle Input Change
     const handleInputChange = (event, newValue) => {
         // Handle input change logic here
     };
 
+    //Handle Key Down
     const handleKeyDown = (event, newValue) => {
         if (event.key === 'Enter') {
             event.preventDefault();
@@ -107,11 +113,11 @@ const Weather = () => {
         }
     };
 
-//Render the Weather component
+    //Render the Weather component
     return (
         <Container className='container'
             style={{
-                backgroundImage: `url(${rainy_background})`,
+                backgroundImage: `url(${backgroundImage})`,
                 display: 'flex',
                 justifyContent: 'space-between',
                 backgroundSize: 'cover',
@@ -130,7 +136,7 @@ const Weather = () => {
                 <Logo />
 
                 {/* Display area */}
-                <Display 
+                <Display
                     data={data}
                 />
 
@@ -169,7 +175,7 @@ const Weather = () => {
                 />
 
                 {/* Weather Details box */}
-                <WeatherDetailsBox 
+                <WeatherDetailsBox
                     data={data}
                 />
 

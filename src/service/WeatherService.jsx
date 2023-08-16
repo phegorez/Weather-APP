@@ -16,6 +16,8 @@ export const useWeatherService = () => {
     const [lastSelected, setLastSelected] = useState('');
     const [query, setQuery] = useState('');
     const [data, setData] = useState(null);
+    const [conditionText, setConditionText] = useState('');
+    const [backgroundImage, setBackgroundImage] = useState('');
 
     useEffect(() => {
         const cities = City.getAllCities();
@@ -84,6 +86,8 @@ export const useWeatherService = () => {
         lastSelected,
         query,
         data,
+        conditionText,
+        backgroundImage,
         fetchWeatherByLocation,
         fetchWeatherData,
         setLatitude,
@@ -94,7 +98,9 @@ export const useWeatherService = () => {
         setSearchResults,
         setPlaceholder,
         setSearchHistory,
-        setLastSelected
+        setLastSelected,
+        setConditionText,
+        setBackgroundImage
         // Other functions if needed
     };
 };
