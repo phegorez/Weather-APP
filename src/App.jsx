@@ -1,6 +1,6 @@
 import './App.css'
 import { ThemeProvider, createTheme} from '@mui/material'
-import Weather from './components/Weather';
+import Weather from './page/Weather';
 import theme from './theme/theme';
 
 
