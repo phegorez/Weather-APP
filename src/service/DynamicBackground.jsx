@@ -11,6 +11,7 @@ import patchy_freezing_drizzle_nearby from '../assets/patchy_freezing_drizzle_ne
 import thundery_outbreaks_in_nearby from '../assets/thundery_outbreaks_in_nearby_background.jpg'
 import blowing_snow from '../assets/blowing_snow_background.jpg'
 import blizzard from '../assets/blizzard_background.jpg'
+import clear from '../assets/clear_background.jpg'
 
 export const useDynamicBackground = (conditionText) => {
     const [backgroundImage, setBackgroundImage] = useState('');
@@ -42,6 +43,8 @@ export const useDynamicBackground = (conditionText) => {
                 return blowing_snow
             } else if (condition === 'Blizzard') {
                 return blizzard
+            } else if (condition === 'Clear') {
+                return clear
             }
         };
 
