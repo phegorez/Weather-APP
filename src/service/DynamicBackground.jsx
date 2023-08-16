@@ -3,7 +3,7 @@ import sunny from '../assets/sunny_background.jpg';
 import partly_cloudy from '../assets/partly_cloudy_background.jpg';
 import cloudy from '../assets/cloudy_background.jpg';
 import overcast from '../assets/overcast_background.jpg';
-import mist from '../assets/overcast_background.jpg';
+import mist from '../assets/mist_background.jpg';
 import patchy_rain_nearby from '../assets/patchy_rain_nearby_background.jpg'
 import patchy_snow_nearby from '../assets/patchy_rain_nearby_background.jpg'
 import patchy_sleet_nearby from '../assets/patchy_sleet_nearby_background.jpg'
