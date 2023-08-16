@@ -12,6 +12,8 @@ import thundery_outbreaks_in_nearby from '../assets/thundery_outbreaks_in_nearby
 import blowing_snow from '../assets/blowing_snow_background.jpg'
 import blizzard from '../assets/blizzard_background.jpg'
 import clear from '../assets/clear_background.jpg'
+import fog from '../assets/fog_background.jpg'
+import freezing_fog from '../assets/freezing_fog_background.jpg'
 
 export const useDynamicBackground = (conditionText) => {
     const [backgroundImage, setBackgroundImage] = useState('');
@@ -45,6 +47,10 @@ export const useDynamicBackground = (conditionText) => {
                 return blizzard
             } else if (condition === 'Clear') {
                 return clear
+            } else if (condition === 'Fog') {
+                return fog
+            } else if (condition === 'Freezing fog') {
+                return freezing_fog
             }
         };
 
