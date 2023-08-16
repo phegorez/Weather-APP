@@ -47,6 +47,7 @@ const Weather = () => {
         // Other functions if needed
     } = useWeatherService(); // Use the useWeatherService hook
 
+    //Use the DynamicBackground hook
     const {backgroundImage} = useDynamicBackground(data?.current.condition.text)
 
     //Handle user search input and display matching city suggestions
