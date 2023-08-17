@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import default_background from '../assets/default_background.jpg'
 import sunny from '../assets/sunny_background.jpg';
 import partly_cloudy from '../assets/partly_cloudy_background.jpg';
 import cloudy from '../assets/cloudy_background.jpg';
@@ -58,7 +59,9 @@ export const useDynamicBackground = (conditionText) => {
                 return patchy_light_drizzle
             } else if (condition === 'Light drizzle') {
                 return light_drizzle
-            } 
+            } else {
+                return default_background
+            }
         };
 
         const bgImage = dynamicWeatherBackground(conditionText);
