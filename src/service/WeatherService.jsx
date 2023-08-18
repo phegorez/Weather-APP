@@ -3,6 +3,7 @@ import axios from 'axios';
 import { City } from 'country-state-city';
 
 const API_KEY = '57b3e3ef5dac4f459e721726232305';
+const WEATHER_API_URL = 'https://api.weatherapi.com/v1/current.json';
 
 export const useWeatherService = () => {
     const [isFetching, setIsFetching] = useState(false);
@@ -38,7 +39,7 @@ export const useWeatherService = () => {
                     console.log('Longitude:', longitude)
 
                     //Using latitude and longitude from current locaction 
-                    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${latitude},${longitude}&aqi=no`;
+                    const apiUrl = `${WEATHER_API_URL}?key=${API_KEY}&q=${latitude},${longitude}&aqi=no`;
                     fetchWeatherData(apiUrl);
                 },
                 (error) => {
@@ -54,24 +55,22 @@ export const useWeatherService = () => {
     useEffect(() => {
         if (!isFetching) {
             fetchWeatherByLocation();
-        } else if (isFetching) {
+        } else if (query) {
             //Using query by user interact, Search Input & Last Search
-            const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${query}&aqi=no`;
+            const apiUrl = `${WEATHER_API_URL}?key=${API_KEY}&q=${query}&aqi=no`;
             fetchWeatherData(apiUrl);
         }
     }, [query, isFetching, latitude, longitude]);
 
     //Fetch weather data from API and update state
-    const fetchWeatherData = (apiUrl) => {
+    const fetchWeatherData = async (apiUrl) => {
         console.log('Fetching weather data from:', apiUrl);
-        axios.get(apiUrl)
-            .then((res) => {
-                // dispatch({type: 'FETCHED', payload: res.data})
-                setData(res.data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        try {
+            const response = await axios.get(apiUrl)
+            setData(response.data)
+        } catch (error) {
+            console.error('Error:', error)
+        }
     };
 
     // Other functions if needed
