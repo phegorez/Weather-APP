@@ -127,7 +127,9 @@ const Weather = () => {
                 padding: '0',
                 margin: '0',
                 maxWidth: '100%',
-                height: '100vh'
+                height:'100%',
+                maxHeight:'100vh',
+                overflow:'auto'
             }}>
 
             {/* left side */}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { City } from 'country-state-city';
 
@@ -11,20 +11,19 @@ export const useWeatherService = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [placeholder, setPlaceholder] = useState('');
-    const [cityNameMap, setCityNameMap] = useState({});
     const [searchHistory, setSearchHistory] = useState([]);
     const [lastSelected, setLastSelected] = useState('');
     const [query, setQuery] = useState('');
     const [data, setData] = useState(null);
 
 
-    useEffect(() => {
+    const cityNameMap = useMemo(() => {
         const cities = City.getAllCities();
         const map = {};
         cities.forEach((city) => {
             map[city.name.toLowerCase()] = city.name;
         });
-        setCityNameMap(map);
+        return map;
     }, []);
 
     const fetchWeatherByLocation = () => {
@@ -35,6 +34,8 @@ export const useWeatherService = () => {
                     // dispatch({type: ' ', payload: {latitude, longitude}})
                     setLatitude(latitude);
                     setLongitude(longitude);
+                    console.log('Latitude:', latitude)
+                    console.log('Longitude:', longitude)
 
                     //Using latitude and longitude from current locaction 
                     const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${latitude},${longitude}&aqi=no`;
@@ -43,7 +44,7 @@ export const useWeatherService = () => {
                 (error) => {
                     console.error('Error getting current location:', error);
                 },
-                {enableHighAccuracy: true}
+                { enableHighAccuracy: true }
             );
         } else {
             console.log('Geolocation is not available in this browser');
@@ -62,6 +63,7 @@ export const useWeatherService = () => {
 
     //Fetch weather data from API and update state
     const fetchWeatherData = (apiUrl) => {
+        console.log('Fetching weather data from:', apiUrl);
         axios.get(apiUrl)
             .then((res) => {
                 // dispatch({type: 'FETCHED', payload: res.data})
