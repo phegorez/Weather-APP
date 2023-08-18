@@ -42,7 +42,8 @@ export const useWeatherService = () => {
                 },
                 (error) => {
                     console.error('Error getting current location:', error);
-                }
+                },
+                {enableHighAccuracy: true}
             );
         } else {
             console.log('Geolocation is not available in this browser');
