@@ -3,7 +3,17 @@ import { Box, List, ListItemButton, ListItemText, Typography } from '@mui/materi
 
 const LastSearchList = ({ searchHistory, handleLastSearchClick }) => {
     return (
-        <Box sx={{ padding: '30px 67px 30px 0', borderBottom: '1px solid #d3d3d3', margin: '0 20px 0 20px' }}>
+        <Box 
+            sx={{ 
+                padding: '30px 67px 30px 0', 
+                borderBottom: '1px solid #d3d3d3', 
+                margin: '0 20px 0 20px',
+                display: {
+                    mobile: 'none',
+                    tablet: 'block'
+                }
+                
+            }}>
             <Typography variant="body1" color="white">Last Search :</Typography>
             <List component="nav" aria-label="secondary mailbox folder">
                 {searchHistory.map((lastSearch, index) => (

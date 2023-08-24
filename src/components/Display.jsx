@@ -1,69 +1,113 @@
-import { Stack, Box, Typography } from "@mui/material"
+import { Box, Container, Typography } from "@mui/material";
 
-const Display = ({data}) => {
+const Display = ({ data }) => {
     return (
-    <Stack className="display-details"
-        sx={{ margin: '65vh 0 0 80px' }}
-        direction='row'
-        alignItems='center'
-    >
+        <Container
+            className="display-details"
+            sx={{
+                margin: {
+                    mobile: '25vh 0 0 auto',
+                    tablet: '65vh 0 0 80px'
+                },
+                display: {
+                    mobile: 'block',
+                    tablet: 'flex'
+                },
+                flexDirection: 'row',
+                alignItems: 'center',
 
-        {/* temperature */}
-        <Box className="temperature" style={{ padding: '0 30px 0 0' }}>
-            {data && data.current && (
-                <Typography variant="h1" color="white">
-                    {Math.floor(data.current.temp_c)}°C
-                </Typography>
-            ) || (
-                    <Typography variant="h1" color="white">
+            }}
+        >
+            {/* temperature */}
+            <Box
+                className="temperature"
+                sx={{
+                    padding: {
+                        mobile: '0 10px 0 0',
+                        tablet: '0 30px 0 0'
+                    },
+                }}
+            >
+                {data && data.current ? (
+                    <Typography
+                        variant="h1"
+                        color="white"
+                        sx={{
+                            fontSize: {
+                                mobile: '2rem',
+                                tablet: '6rem'
+                            },
+                        }}
+                    >
+                        {Math.floor(data.current.temp_c)}°C
+                    </Typography>
+                ) : (
+                    <Typography
+                        variant="h1"
+                        color="white"
+                        sx={{
+                            fontSize: {
+                                mobile: '2rem',
+                                tablet: '6rem'
+                            },
+                        }}
+                    >
                         Loading...
                     </Typography>
                 )}
-        </Box>
+            </Box>
 
-        {/* location-details */}
-        <Box className="location-details" style={{ padding: '0 30px 0 0' }}>
-
-            {data && data.location && (
-                <Typography variant="h4" color="white">
-                    {data.location.name}
-                </Typography>
-            )}
-
-
-            {/*Times-Details*/}
-            <Stack className="times"
-                direction='row'
-                alignItems='center'
+            {/* location-details */}
+            <Box
+                className="location-details"
+                sx={{
+                    padding: '0 30px 0 0',
+                }}
             >
+                {/* Location Name */}
                 {data && data.location && (
-                    <Typography variant="body1" color="white" className='date-time' sx={{ fontSize: '13px' }}>
-                        {data.location.localtime}
+                    <Typography
+                        variant="h4"
+                        color="white"
+                        sx={{
+                            fontSize: '2rem',
+                        }}
+                    >
+                        {data.location.name}
                     </Typography>
                 )}
 
-            </Stack>
+                {/* Times-Details */}
+                {data && data.location && (
+                    <Typography
+                        variant="body1"
+                        color="white"
+                        className='date-time'
+                        sx={{ fontSize: '13px' }}
+                    >
+                        {data.location.localtime}
+                    </Typography>
+                )}
+            </Box>
 
-        </Box>
-
-        {/* weather icon */}
-        <Stack className="weather-icon"
-            alignItems='center'
-            sx={{ margin: '10px 0 0 0' }}
-        >
-            {data && data.current && data.current.condition && (
-                <img src={data.current.condition.icon} alt="" />
-            )}
-            {data && data.current && data.current.condition && (
-                <Typography variant="body2" color="white">
-                    {data?.current.condition.text}
-                </Typography>
-            )}
-
-        </Stack>
-
-    </Stack>
-    )
+            {/* weather icon */}
+            <Box
+                className="weather-icon"
+                sx={{
+                    margin: '10px 0 0 0',
+                }}
+            >
+                {data && data.current && data.current.condition && (
+                    <img src={data.current.condition.icon} alt="" />
+                )}
+                {data && data.current && data.current.condition && (
+                    <Typography variant="body2" color="white">
+                        {data?.current.condition.text}
+                    </Typography>
+                )}
+            </Box>
+        </Container>
+    );
 }
 
-export default Display
+export default Display;

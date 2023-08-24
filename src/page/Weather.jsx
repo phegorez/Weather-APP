@@ -1,7 +1,6 @@
 import {
-    Container,
     Stack,
-    Box,
+    Box, Typography,
 } from '@mui/material'
 
 import './Weather.css'
@@ -11,7 +10,6 @@ import { useWeatherService } from '../service/WeatherService';
 import Logo from '../components/Logo';
 import Display from '../components/Display';
 import WeatherDetailsBox from '../components/WeatherDetailsBox';
-import { useState, useEffect } from 'react'
 import { useDynamicBackground } from '../service/DynamicBackground'
 
 const MAX_SEARCH_HISTORY = 5;
@@ -116,24 +114,34 @@ const Weather = () => {
 
     //Render the Weather component
     return (
-        <Container className='container'
-            style={{
+        <Box
+            sx={{
                 backgroundImage: `url(${backgroundImage})`,
-                display: 'flex',
-                justifyContent: 'space-between',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                padding: '0',
-                margin: '0',
                 maxWidth: '100%',
                 height:'100%',
                 maxHeight:'100vh',
-                overflow:'auto'
-            }}>
+                overflow:'hidden',
+                display:'flex',
+                flexDirection:'row',
+                justifyContent:'space-around'
+            }}
+        >
 
             {/* left side */}
-            <section className='left'>
+            <Box
+                className='left'
+                sx={{
+                    width:{
+                        mobile:'50%',
+                        tablet:'50%'
+                    },
+                    height:'100vh',
+                    maxHeight:'100%',
+                }}
+            >
 
                 {/* Logo */}
                 <Logo />
@@ -143,10 +151,34 @@ const Weather = () => {
                     data={data}
                 />
 
-            </section>
+            </Box>
+
+            <Box sx={{
+                width:{
+                    mobile:"0%",
+                    tablet:'100%'
+                },
+            }} />
 
             {/* right side */}
-            <section className='right'>
+            <Box 
+                className='right'
+                sx={{
+                    marginTop: {
+                        mobile: '25vh',
+                        tablet: '0'
+                    },
+                    width:{
+                        mobile:'50%',
+                        tablet:'50%'
+                    },
+                    height: {
+                        mobile:'45vh',
+                        tablet:'100vh'
+                    },
+                    maxHeight:'100%',
+                }}
+            >
                 {/* Search area */}
                 <Stack
                     direction='row'
@@ -182,9 +214,9 @@ const Weather = () => {
                     data={data}
                 />
 
-            </section>
+            </Box>
 
-        </Container>
+        </Box>
     )
 
 }
